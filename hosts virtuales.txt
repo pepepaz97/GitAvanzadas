@@ -1,0 +1,38 @@
+hosts virtuales
+sudo setenforce 0
+getenforce
+mkdir -p /var/www/josepepe97.com/html
+mkdir -p /var/www/pazminozapata97.com/html
+chown -R apache:apache /var/www/josepepe97.com/
+chown -R apache:apache /var/www/pazminozapata97.com/
+chmod -R 755 /var/www/
+sudo nano /var/www/josepepe97.com/html/index.html
+sudo nano /var/www/pazminozapata97.com/html/index.html
+sudo nano /etc/httpd/conf/httpd.conf
+
+-----------------------------
+<Virtualhost *:80>
+	  ServerName www.josepepe97.com
+	  ServerAlias josepepe97.com
+	  DocumentRoot /var/www/josepepe97.com/html
+        ErrorLog /var/www/josepepe97.com/error.log
+        CustomLog /var/www/josepepe97.com/request.log combined
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName www.pazminozapata97.com
+	  ServerAlias pazminozapata97.com
+	  DocumentRoot /var/www/pazminozapata97.com/html
+        ErrorLog /var/www/pazminozapata97.com/error.log
+        CustomLog /var/www/pazminozapata97.com/request.log combined
+</VirtualHost>
+
+
+windows
+worpad como administrador
+C:\Windows\System32\drivers\etc\
+agregar la ip con los dominios
+192.168.116.130 www.josepepe97.com www.pazminozapata97.com
+
+
+systemctl restart httpd
