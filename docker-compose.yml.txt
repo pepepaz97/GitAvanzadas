@@ -1,0 +1,62 @@
+docker-compose.yml///////////////
+nano docker-compose.yml
+///////////////////////
+version: '3'
+
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+    networks:
+      - mynetwork
+    volumes:
+      - wordpress_data:/var/www/html
+
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: secretpassword
+    networks:
+      - mynetwork
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  backup:
+    image: busybox
+    volumes:
+      - mariadb_data:/data
+      - backup_data:/backup
+    command: sh -c 'while sleep 300; do cp -r /data /backup/backup_$(date +%Y%m%d%H%M%S); done'
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  wordpress_data:
+  mariadb_data:
+  backup_data:
+
+cntrol O
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://192.168.159.129:8080/
+
